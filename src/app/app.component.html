@@ -8,10 +8,10 @@
 
     <ion-content>
       <ion-list>
-        <ion-item (click)="goToHome()">
+        <ion-item (click)="goToHome()" style="cursor: pointer;">
           <ion-label>Home</ion-label>
         </ion-item>
-        <ion-item (click)="goToFavorites()">
+        <ion-item (click)="goToFavorites()" style="cursor: pointer;">
           <ion-label>Favoritos</ion-label>
         </ion-item>
       </ion-list>
@@ -24,7 +24,9 @@
         <ion-buttons slot="start">
           <ion-menu-button></ion-menu-button>
         </ion-buttons>
-        <ion-title (click)="goToHome()">Pokémon</ion-title>
+        <ion-title (click)="goToHome()" class="logo-title">
+          <img src="assets/media/logo.png" alt="Pokémon Logo" height="32" style="cursor: pointer;"/>
+        </ion-title>
       </ion-toolbar>
     </ion-header>
 
