@@ -1,0 +1,19 @@
+.favorite-btn-container {
+  display: flex;
+  justify-content: end;
+  padding: 0.5rem;
+}
+
+.pokemon-img {
+  width: 100%;
+  height: auto;
+  max-height: 150px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+.pokemon-name {
+  text-align: center;
+  font-size: 1.2rem;
+}

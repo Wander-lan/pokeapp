@@ -3,20 +3,10 @@
   <ion-grid>
     <ion-row>
       <ion-col size="12" size-sm="6" size-md="4" size-lg="3" *ngFor="let p of pokemons">
-        <ion-card (click)="goToDetail(p)">
-          <div class="favorite-btn-container">
-            <ion-icon
-              name="{{ isFavorite(p.name) ? 'heart' : 'heart-outline' }}"
-              color="danger"
-              size="small"
-              (click)="toggleFavorite(p.name); $event.stopPropagation();">
-            </ion-icon>
-          </div>
-          <img class="pokemon-img" [src]="p.image" [alt]="p.name"/>
-          <ion-card-header class="card-header">
-            <ion-card-title class="pokemon-name">{{ p.name | titlecase }}</ion-card-title>
-          </ion-card-header>
-        </ion-card>
+        <app-pokemon-card
+          [pokemon]="p"
+        >
+        </app-pokemon-card>
       </ion-col>
     </ion-row>
   </ion-grid>

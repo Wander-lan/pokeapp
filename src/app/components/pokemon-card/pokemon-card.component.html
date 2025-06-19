@@ -1,0 +1,15 @@
+<ion-card (click)="goToDetail(pokemon)">
+  <div class="favorite-btn-container">
+    <ion-icon
+      [name]="isFavorite(pokemon.name) ? 'heart' : 'heart-outline'"
+      color="danger"
+      size="small"
+      (click)="toggleFavorite(pokemon.name); $event.stopPropagation();"
+    >
+    </ion-icon>
+  </div>
+  <img class="pokemon-img" [src]="pokemon.image" [alt]="pokemon.name" />
+  <ion-card-header class="card-header">
+    <ion-card-title class="pokemon-name">{{ pokemon.name | titlecase }}</ion-card-title>
+  </ion-card-header>
+</ion-card>

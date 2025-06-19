@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { Router } from '@angular/router';
 
 import { PokemonService } from '../services/pokemon.service';
-import { FavoriteService } from '../services/favorite.service';
+
+import { PokemonCardComponent } from '../components/pokemon-card/pokemon-card.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
     CommonModule,
-    IonicModule
+    IonicModule,
+    PokemonCardComponent
   ],
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
@@ -25,16 +26,10 @@ export class HomePage implements OnInit {
 
   constructor(
     private pokemonService: PokemonService,
-    private router: Router,
-    private favoriteService: FavoriteService
   ) {}
 
   ngOnInit() {
     this.loadPokemons();
-  }
-
-  goToDetail(pokemon: any) {
-    this.router.navigate(['/pokemon', pokemon.name]);
   }
 
   loadPokemons() {
@@ -44,13 +39,5 @@ export class HomePage implements OnInit {
       this.offset += this.limit;
       this.loading = false;
     });
-  }
-
-  isFavorite(name: string): boolean {
-    return this.favoriteService.isFavorite(name);
-  }
-
-  toggleFavorite(name: string) {
-    this.favoriteService.toggleFavorite(name);
   }
 }
