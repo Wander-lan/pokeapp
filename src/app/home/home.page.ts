@@ -17,15 +17,26 @@ import { Router } from '@angular/router';
 export class HomePage implements OnInit {
   pokemons: any[] = [];
 
+  limit = 6;
+  offset = 0;
+  loading = false;
+
   constructor(private pokemonService: PokemonService, private router: Router) {}
 
   ngOnInit() {
-    this.pokemonService.getPokemons().subscribe((data) => {
-      this.pokemons = data;
-    });
+    this.loadPokemons();
   }
 
   goToDetail(pokemon: any) {
     this.router.navigate(['/pokemon', pokemon.name]);
+  }
+
+  loadPokemons() {
+    this.loading = true;
+    this.pokemonService.getPokemons(this.limit, this.offset).subscribe((data) => {
+      this.pokemons = [...this.pokemons, ...data]; // mantém os anteriores
+      this.offset += this.limit;
+      this.loading = false;
+    });
   }
 }
