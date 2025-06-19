@@ -7,6 +7,9 @@ import { AppComponent } from './app/app.component';
 
 import { provideHttpClient } from '@angular/common/http';
 
+import { addIcons } from 'ionicons';
+import { heart, heartOutline } from 'ionicons/icons';
+
 bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
@@ -14,4 +17,9 @@ bootstrapApplication(AppComponent, {
     provideRouter(routes, withPreloading(PreloadAllModules)),
     provideHttpClient(),
   ],
+});
+
+addIcons({
+  heart,
+  heartOutline
 });
