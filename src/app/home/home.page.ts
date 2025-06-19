@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
 export class HomePage implements OnInit {
   pokemons: any[] = [];
 
-  limit = 6;
+  limit = 2;
   offset = 0;
   loading = false;
 

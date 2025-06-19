@@ -21,6 +21,7 @@
   <div class="ion-text-center ion-margin">
     <ion-button expand="block" (click)="loadPokemons()" [disabled]="loading">
       {{ loading ? 'Carregando...' : 'Carregar mais' }}
+      <ion-spinner *ngIf="loading" name="crescent"></ion-spinner>
     </ion-button>
   </div>
 </ion-content>
