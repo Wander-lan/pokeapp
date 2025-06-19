@@ -10,7 +10,7 @@ export class PokemonService {
 
   constructor(private http: HttpClient) {}
 
-  getPokemons(limit: number = 25, offset: number = 0): Observable<any[]> {
+  getPokemons(limit: number = 151, offset: number = 0): Observable<any[]> {
     return this.http.get<any>(`${this.baseUrl}/pokemon?limit=${limit}&offset=${offset}`).pipe(
       map((response) => {
         return response.results.map((pokemon: any, index: number) => {

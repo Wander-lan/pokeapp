@@ -19,9 +19,15 @@ import { PokemonCardComponent } from '../components/pokemon-card/pokemon-card.co
 })
 export class HomePage implements OnInit {
   pokemons: any[] = [];
+  displayedPokemons: any[] = [];
 
-  limit = 4;
+  limit = 151;
   offset = 0;
+
+  currentPage = 1;
+  pageSize = 8;
+  totalPages = 1;
+
   loading = false;
 
   constructor(
@@ -36,8 +42,16 @@ export class HomePage implements OnInit {
     this.loading = true;
     this.pokemonService.getPokemons(this.limit, this.offset).subscribe((data) => {
       this.pokemons = [...this.pokemons, ...data]; // mantém os anteriores
-      this.offset += this.limit;
+      this.totalPages = Math.ceil(this.pokemons.length / this.pageSize);
+      this.setPage(this.currentPage);
       this.loading = false;
     });
+  }
+
+   setPage(page: number) {
+    this.currentPage = page;
+    const start = (page - 1) * this.pageSize;
+    const end = start + this.pageSize;
+    this.displayedPokemons = this.pokemons.slice(start, end);
   }
 }
