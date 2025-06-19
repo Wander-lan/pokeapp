@@ -8,7 +8,7 @@
   <ion-grid>
     <ion-row>
       <ion-col size="6" *ngFor="let p of pokemons">
-        <ion-card>
+        <ion-card (click)="goToDetail(p)">
           <img [src]="p.image" [alt]="p.name" />
           <ion-card-header>
             <ion-card-title>{{ p.name | titlecase }}</ion-card-title>

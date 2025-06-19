@@ -24,4 +24,8 @@ export class PokemonService {
       })
     );
   }
+
+  getPokemonDetail(name: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/pokemon/${name}`);
+  }
 }
