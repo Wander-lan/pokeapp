@@ -37,10 +37,6 @@ export class HomePage implements OnInit {
     this.router.navigate(['/pokemon', pokemon.name]);
   }
 
-  goToFavorites() {
-    this.router.navigate(['/favorites']);
-  }
-
   loadPokemons() {
     this.loading = true;
     this.pokemonService.getPokemons(this.limit, this.offset).subscribe((data) => {
