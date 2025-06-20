@@ -1,5 +1,14 @@
 <ion-content class="ion-padding">
   <h1 class="ion-text-center">Pokédex</h1>
+
+  <ion-searchbar
+    [(ngModel)]="searchQuery"
+    (ionInput)="onSearchChange()"
+    placeholder="Pesquisar por nome ou número..."
+    debounce="300"
+    showClearButton="focus">
+  </ion-searchbar>
+  
   <ion-grid class="home-grid">
     <ion-row>
       <ion-col
