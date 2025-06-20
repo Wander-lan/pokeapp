@@ -7,12 +7,23 @@
 }
 
 .pokemon-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background: rgb(236, 236, 236);
-  width: 280px;
-  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+
+  .background-image {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    filter: blur(3px);
+    transform: scale(1.1);
+    z-index: 0;
+  }
+
+  .pokemon-img {
+    position: relative;
+    z-index: 1;
+  }
 }
 
 .pokemon-img {
@@ -22,7 +33,6 @@
   object-fit: contain;
   display: block;
   margin: 0 auto;
-  background: rgb(236, 236, 236);
 }
 
 .info-container {

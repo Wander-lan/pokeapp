@@ -34,16 +34,9 @@ export class FavoritesPage implements OnInit {
 
   loadFavorites() {
     const favoriteNames = this.favoriteService.getFavorites();
-    const requests = favoriteNames.map(name =>
-      this.pokemonService.getPokemonDetail(name)
-    );
 
-    Promise.all(requests.map(req => req.toPromise())).then(results => {
-      this.pokemons = results.map(pokemon => ({
-        name: pokemon.name,
-        image: pokemon.sprites.front_default,
-        id: pokemon.id
-      }));
+    this.pokemonService.getFavoritePokemons(favoriteNames).subscribe(pokemons => {
+      this.pokemons = pokemons;
     });
   }
 }

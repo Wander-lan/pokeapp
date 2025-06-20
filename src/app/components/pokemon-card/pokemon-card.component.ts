@@ -23,6 +23,14 @@ export class PokemonCardComponent {
     private router: Router,
   ) {}
 
+  get habitatBackground(): string {
+    const path = this.pokemon?.habitat
+      ? `/assets/media/habitat-${this.pokemon.habitat}.png`
+      : `/assets/media/habitat-unknown.png`;
+
+    return `url('${path}')`;
+  }
+
   goToDetail(pokemon: any) {
     this.router.navigate(['/pokemon', pokemon.name]);
   }
