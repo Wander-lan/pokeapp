@@ -8,12 +8,34 @@
 
     <ion-content>
       <ion-list>
-        <ion-item (click)="goToHome()" style="cursor: pointer;">
-          <ion-label>Home</ion-label>
-        </ion-item>
-        <ion-item (click)="goToFavorites()" style="cursor: pointer;">
-          <ion-label>Favoritos</ion-label>
-        </ion-item>
+        <ion-menu-toggle>
+          <ion-item
+            (click)="goToHome()"
+            style="cursor: pointer; display: flex; flex-direction: row;"
+          >
+            <img
+              src="assets/icon/pokeball.png" 
+              alt="pokeball"
+              style="width: 25px; margin-right: 0.5rem;"
+            >
+            <ion-label>Home</ion-label>
+          </ion-item>
+          
+          <ion-item
+            (click)="goToFavorites()"
+            style="cursor: pointer; display: flex; flex-direction: row;"
+          >
+            <ion-icon
+              [name]="'heart'"
+              color="danger"
+              size="small"
+              class="heart-icon"
+              style="margin-right: 0.5rem; margin-left: 0.2rem;"
+            >
+            </ion-icon>
+            <ion-label>Favoritos</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
       </ion-list>
     </ion-content>
   </ion-menu>

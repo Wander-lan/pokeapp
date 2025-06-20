@@ -1,21 +1,38 @@
-.favorite-btn-container {
+.pokemon-card {
   display: flex;
-  justify-content: end;
-  padding: 0.5rem;
+  flex-direction: column;
+  justify-content: space-between;
+  background: rgb(236, 236, 236);
 }
 
 .pokemon-img {
-  width: 100%;
+  width: 250px;
+  aspect-ratio: 1 / 1;
   height: auto;
-  max-height: 150px;
   object-fit: contain;
   display: block;
   margin: 0 auto;
+  cursor: pointer;
+  background: rgb(236, 236, 236);
+}
+
+.info-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.5rem 0;
+  gap: 1rem;
+  font-family: monospace;
 }
 
 .pokemon-name {
   text-align: center;
   font-size: 1.2rem;
+  margin: 0;
+}
+
+.heart-icon {
+  cursor: pointer;
 }
 
 .card-header {

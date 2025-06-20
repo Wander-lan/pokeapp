@@ -1,0 +1,19 @@
+:host {
+  ion-content {
+    --background: var(--dark-blue);
+  }
+}
+
+.home-grid {
+    padding: 0;
+}
+
+h2 {
+  font-family: fantasy;
+}
+
+@media (min-width: 760px) {
+    .home-grid {
+        padding: 0 15rem;
+    }
+}

@@ -1,23 +1,22 @@
 <ion-row class="pagination-container">
+  <ion-text class="pagination-counter">
+    Página <strong>{{ currentPage }}</strong> de <strong>{{ totalPages }}</strong>
+  </ion-text>
   <div class="page-btns">
-    <ion-button fill="clear" (click)="goToFirst()" [disabled]="currentPage === 1">
-      Início
+    <ion-button color="secondary" fill="outline" (click)="goToFirst()" [disabled]="currentPage === 1">
+      &lt;&lt;
     </ion-button>
 
-    <ion-button fill="clear" (click)="goToPrevious()" [disabled]="currentPage === 1">
-      Anterior
+    <ion-button color="secondary" fill="solid" (click)="goToPrevious()" [disabled]="currentPage === 1">
+      &lt;
     </ion-button>
 
-    <ion-button fill="clear" (click)="goToNext()" [disabled]="currentPage === totalPages">
-      Próxima
+    <ion-button color="secondary" fill="solid" (click)="goToNext()" [disabled]="currentPage === totalPages">
+      &gt;
     </ion-button>
 
-    <ion-button fill="clear" (click)="goToLast()" [disabled]="currentPage === totalPages">
-      Fim
+    <ion-button color="secondary" fill="outline" (click)="goToLast()" [disabled]="currentPage === totalPages">
+      &gt;&gt;
     </ion-button>
   </div>
-
-  <ion-text class="pagination-counter">
-    Página {{ currentPage }} de {{ totalPages }}
-  </ion-text>
 </ion-row>

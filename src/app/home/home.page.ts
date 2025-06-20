@@ -27,7 +27,7 @@ export class HomePage implements OnInit {
   offset = 0;
 
   currentPage = 1;
-  pageSize = 8;
+  pageSize = 18;
   totalPages = 1;
 
   loading = false;
