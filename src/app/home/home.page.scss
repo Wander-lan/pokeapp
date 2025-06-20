@@ -12,8 +12,14 @@ h2 {
     font-family: fantasy;
 }
 
-@media (min-width: 760px) {
+@media (min-width: 1280px) {
     .home-grid {
-        padding: 0 15rem;
+        padding: 0 5rem;
+    }
+}
+
+@media (min-width: 1920px) {
+    .home-grid {
+        padding: 0 25rem;
     }
 }
