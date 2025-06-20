@@ -2,7 +2,7 @@
   <img class="pokemon-img" [src]="pokemon.image" [alt]="pokemon.name" (click)="goToDetail(pokemon)"/>
 </ion-card>
 <div class="info-container">
-  <h3 class="pokemon-name">#{{ pokemon.id }} - {{  pokemon.name | titlecase }}</h3>
+  <h3 class="pokemon-name">N&ordm; {{ pokemon.id }} - {{  pokemon.name | titlecase }}</h3>
   <ion-icon
     [name]="isFavorite(pokemon.name) ? 'heart' : 'heart-outline'"
     color="danger"
