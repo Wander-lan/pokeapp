@@ -1,0 +1,18 @@
+.pagination-container {
+    justify-content: center !important;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin: auto;
+    margin-bottom: 1rem;
+}
+
+.page-btns {
+    display: flex;
+    flex-direction: row;
+}
+
+.pagination-counter {
+    margin: auto;
+    font-size: 12px;
+}

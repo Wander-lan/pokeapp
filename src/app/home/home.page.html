@@ -11,34 +11,9 @@
     </ion-row>
   </ion-grid>
 
-  <ion-row class="pagination-container">
-    <div class="page-btns">
-      <ion-button fill="clear" (click)="setPage(1)" [disabled]="currentPage === 1">
-        Início
-      </ion-button>
-    
-      <ion-button fill="clear" (click)="setPage(currentPage - 1)" [disabled]="currentPage === 1">
-        Anterior
-      </ion-button>
-
-      <ion-button fill="clear" (click)="setPage(currentPage + 1)" [disabled]="currentPage === totalPages">
-        Próxima
-      </ion-button>
-
-      <ion-button fill="clear" (click)="setPage(totalPages)" [disabled]="currentPage === totalPages">
-        Fim
-      </ion-button>
-    </div>
-
-    <ion-text class="pagination-counter">
-      Página {{ currentPage }} de {{ totalPages }}
-    </ion-text>
-  </ion-row>
-
-  <!-- <div class="ion-text-center ion-margin">
-    <ion-button expand="block" (click)="loadPokemons()" [disabled]="loading">
-      {{ loading ? 'Carregando...' : 'Carregar mais' }}
-      <ion-spinner *ngIf="loading" name="crescent"></ion-spinner>
-    </ion-button>
-  </div> -->
+  <app-pagination
+    [currentPage]="currentPage"
+    [totalPages]="totalPages"
+    (pageChange)="setPage($event)">
+  </app-pagination>
 </ion-content>

@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { PokemonService } from '../services/pokemon.service';
 
 import { PokemonCardComponent } from '../components/pokemon-card/pokemon-card.component';
+import { PaginationComponent } from '../components/pagination/pagination.component';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,8 @@ import { PokemonCardComponent } from '../components/pokemon-card/pokemon-card.co
   imports: [
     CommonModule,
     IonicModule,
-    PokemonCardComponent
+    PokemonCardComponent,
+    PaginationComponent
   ],
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
@@ -48,7 +50,7 @@ export class HomePage implements OnInit {
     });
   }
 
-   setPage(page: number) {
+  setPage(page: number) {
     this.currentPage = page;
     const start = (page - 1) * this.pageSize;
     const end = start + this.pageSize;
