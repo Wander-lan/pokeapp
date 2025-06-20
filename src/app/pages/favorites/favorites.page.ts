@@ -41,7 +41,8 @@ export class FavoritesPage implements OnInit {
     Promise.all(requests.map(req => req.toPromise())).then(results => {
       this.pokemons = results.map(pokemon => ({
         name: pokemon.name,
-        image: pokemon.sprites.front_default
+        image: pokemon.sprites.front_default,
+        id: pokemon.id
       }));
     });
   }
