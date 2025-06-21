@@ -1,27 +1,50 @@
-#container {
-  text-align: center;
-
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+:host {
+    ion-content {
+        --background: var(--dark-blue);
+    }
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+.home-grid {
+    padding: 0;
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
-  margin: 0;
+h1 {
+    font-family: fantasy;
 }
 
-#container a {
-  text-decoration: none;
+.search-bar-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    max-width: 40rem;
+    margin: 0 auto;
+}
+
+::ng-deep .filter-modal {
+    --max-height: 15rem;
+    --border-radius: 16px;
+    --background: #fff;
+    margin: auto;
+    padding: 2rem;
+}
+
+.modal-footer {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    bottom: 0;
+    width: 100%;
+    justify-content: center;
+}
+
+@media (min-width: 1280px) {
+    .home-grid {
+        padding: 0 5rem;
+    }
+}
+
+@media (min-width: 1920px) {
+    .home-grid {
+        padding: 0 25rem;
+    }
 }

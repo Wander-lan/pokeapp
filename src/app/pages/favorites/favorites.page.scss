@@ -1,0 +1,25 @@
+:host {
+  ion-content {
+    --background: var(--dark-blue);
+  }
+}
+
+.favorites-grid {
+  padding: 0;
+}
+
+h1 {
+  font-family: fantasy;
+}
+
+@media (min-width: 1280px) {
+  .favorites-grid {
+    padding: 0 5rem;
+  }
+}
+
+@media (min-width: 1920px) {
+  .favorites-grid {
+    padding: 0 25rem;
+  }
+}

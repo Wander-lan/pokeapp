@@ -1,0 +1,21 @@
+<div class="pokemon-card-container">
+  <ion-card class="pokemon-card" (click)="goToDetail(pokemon)">
+    <div
+      class="background-image"
+      [ngStyle]="{ 'background-image': habitatBackground }"
+    ></div>
+
+    <img class="pokemon-img" [src]="pokemon.image" [alt]="pokemon.name" />
+  </ion-card>
+  <div class="info-container">
+    <h3 class="pokemon-name">N&ordm; {{ pokemon.id }} - {{  pokemon.name | titlecase }}</h3>
+    <ion-icon
+      [name]="isFavorite(pokemon.name) ? 'heart' : 'heart-outline'"
+      color="danger"
+      size="small"
+      (click)="toggleFavorite(pokemon.name); $event.stopPropagation();"
+      class="heart-icon"
+    >
+    </ion-icon>
+  </div>
+</div>

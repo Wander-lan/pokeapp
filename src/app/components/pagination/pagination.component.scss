@@ -1,0 +1,20 @@
+.pagination-container {
+    justify-content: center !important;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin: 2rem auto 1rem;
+    row-gap: 0.5rem;
+    color: rgb(187, 187, 187);
+}
+
+.page-btns {
+    display: flex;
+    flex-direction: row;
+    gap: 0.2rem;
+}
+
+.pagination-counter {
+    margin: auto;
+    font-size: 12px;
+}

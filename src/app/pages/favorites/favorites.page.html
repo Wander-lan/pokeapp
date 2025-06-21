@@ -1,0 +1,16 @@
+<ion-content class="ion-padding">
+  <h1 class="ion-text-center">Meus favoritos</h1>
+  <ion-grid class="favorites-grid">
+    <ion-row>
+      <ion-col 
+        size="12" size-sm="6" size-md="4" size-lg="4" size-xl="4"
+        *ngFor="let pokemon of pokemons"
+      >
+        <app-pokemon-card
+          [pokemon]="pokemon"
+        >
+        </app-pokemon-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

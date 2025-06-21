@@ -1,11 +1,25 @@
 import { Component } from '@angular/core';
-import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
+import { IonicModule } from '@ionic/angular';
+import { Router, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  imports: [IonApp, IonRouterOutlet],
+  imports: [
+    IonicModule,
+    RouterOutlet
+],
 })
 export class AppComponent {
-  constructor() {}
+  constructor(
+    private router: Router,
+  ) {}
+
+  goToHome() {
+    this.router.navigate(['/home']);
+  }
+
+  goToFavorites() {
+    this.router.navigate(['/favorites']);
+  }
 }
