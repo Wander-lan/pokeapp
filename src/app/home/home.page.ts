@@ -68,7 +68,6 @@ export class HomePage implements OnInit {
   }
 
   onSearchChange() {
-    this.currentPage = 1;
     this.applySearchFilter();
   }
 
@@ -84,6 +83,8 @@ export class HomePage implements OnInit {
     });
 
     this.totalPages = Math.ceil(this.filteredPokemons.length / this.pageSize);
+    
+    this.currentPage = 1;
     this.setPage(this.currentPage);
     if (this.isFilterOpen) this.closeFilterModal();
   }
