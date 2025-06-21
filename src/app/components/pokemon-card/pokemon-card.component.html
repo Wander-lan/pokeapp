@@ -18,4 +18,13 @@
     >
     </ion-icon>
   </div>
+  <div class="type-labels">
+    <span
+      *ngFor="let type of pokemon.types"
+      class="type-label"
+      [ngStyle]="{ 'background-color': getTypeColor(type) }"
+    >
+      {{ type | titlecase }}
+    </span>
+  </div>
 </div>

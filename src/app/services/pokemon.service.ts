@@ -52,17 +52,17 @@ export class PokemonService {
   getFavoritePokemons(names: string[]): Observable<any[]> {
     return forkJoin(
       names.map(name =>
-        this.getPokemonDetail(name).pipe(
-          switchMap(detail =>
-            this.getPokemonSpecies(detail.id).pipe(
-              map(species => ({
-                name: detail.name,
-                id: detail.id,
-                image: detail.sprites.front_default,
-                habitat: species.habitat?.name || 'unknown'
-              }))
-            )
-          )
+        forkJoin([
+          this.getPokemonDetail(name),
+          this.getPokemonSpecies(name)
+        ]).pipe(
+          map(([detail, species]) => ({
+            name: detail.name,
+            id: detail.id,
+            image: detail.sprites.front_default,
+            habitat: species.habitat?.name || 'unknown',
+            types: detail.types.map((t: any) => t.type.name)
+          }))
         )
       )
     );
