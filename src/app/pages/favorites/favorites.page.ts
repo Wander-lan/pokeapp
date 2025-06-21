@@ -23,6 +23,8 @@ import { PokemonCardComponent } from '../../components/pokemon-card/pokemon-card
 export class FavoritesPage implements OnInit {
   pokemons: any[] = [];
 
+  loading = false;
+
   constructor(
     private favoriteService: FavoriteService,
     private pokemonService: PokemonService
@@ -33,10 +35,12 @@ export class FavoritesPage implements OnInit {
   }
 
   loadFavorites() {
+    this.loading = true;
     const favoriteNames = this.favoriteService.getFavorites();
 
     this.pokemonService.getFavoritePokemons(favoriteNames).subscribe(pokemons => {
       this.pokemons = pokemons;
     });
+    this.loading = false;
   }
 }
