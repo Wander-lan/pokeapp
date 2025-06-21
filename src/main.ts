@@ -8,7 +8,7 @@ import { AppComponent } from './app/app.component';
 import { provideHttpClient } from '@angular/common/http';
 
 import { addIcons } from 'ionicons';
-import { heart, heartOutline } from 'ionicons/icons';
+import { heart, heartOutline, funnel, funnelOutline } from 'ionicons/icons';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -21,5 +21,7 @@ bootstrapApplication(AppComponent, {
 
 addIcons({
   heart,
-  heartOutline
+  heartOutline,
+  funnel,
+  funnelOutline
 });

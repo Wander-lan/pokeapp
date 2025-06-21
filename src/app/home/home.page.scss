@@ -12,6 +12,31 @@ h1 {
     font-family: fantasy;
 }
 
+.search-bar-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    max-width: 40rem;
+    margin: 0 auto;
+}
+
+::ng-deep .filter-modal {
+    --max-height: 15rem;
+    --border-radius: 16px;
+    --background: #fff;
+    margin: auto;
+    padding: 2rem;
+}
+
+.modal-footer {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    bottom: 0;
+    width: 100%;
+    justify-content: center;
+}
+
 @media (min-width: 1280px) {
     .home-grid {
         padding: 0 5rem;

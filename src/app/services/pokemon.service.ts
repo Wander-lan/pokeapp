@@ -20,13 +20,16 @@ export class PokemonService {
             const id = offset + index + 1;
             const image = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
 
-            // Get the habitats as well
-            return this.getPokemonSpecies(pokemon.name).pipe(
-              map((speciesData) => ({
+            return forkJoin([
+              this.getPokemonDetail(pokemon.name),
+              this.getPokemonSpecies(pokemon.name)
+            ]).pipe(
+              map(([detail, speciesData]) => ({
                 name: pokemon.name,
                 id,
                 image,
-                habitat: speciesData.habitat?.name || 'unknown'
+                habitat: speciesData.habitat?.name || 'unknown',
+                types: detail.types.map((t: any) => t.type.name)
               }))
             );
           })

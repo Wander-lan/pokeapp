@@ -37,6 +37,13 @@ export class HomePage implements OnInit {
 
   searchQuery: string = '';
 
+  selectedTypes: string[] = [];
+  selectedHabitats: string[] = [];
+
+  allTypes: string[] = [];
+  allHabitats: string[] = [];
+  isFilterOpen = false;
+
   constructor(
     private pokemonService: PokemonService,
   ) {}
@@ -48,10 +55,16 @@ export class HomePage implements OnInit {
   loadPokemons() {
     this.loading = true;
     this.pokemonService.getPokemons(this.limit, this.offset).subscribe((data) => {
-      this.pokemons = [...data]; // mantém os anteriores
+      this.pokemons = [...data];
+      this.allTypes = this.getUniqueValues(data.flatMap(p => p.types));
+      this.allHabitats = this.getUniqueValues(data.map(p => p.habitat));
       this.applySearchFilter();
       this.loading = false;
     });
+  }
+
+  getUniqueValues(arr: string[]): string[] {
+    return Array.from(new Set(arr)).sort();
   }
 
   onSearchChange() {
@@ -62,19 +75,43 @@ export class HomePage implements OnInit {
   applySearchFilter() {
     const query = this.searchQuery.toLowerCase().trim();
 
-    if (query === '') {
-      this.filteredPokemons = this.pokemons;
-    } else {
-      this.filteredPokemons = this.pokemons.filter(p =>
-        p.name.toLowerCase().includes(query) ||
-        p.id.toString().includes(query)
-      );
-    }
+    this.filteredPokemons = this.pokemons.filter(p => {
+      const matchesQuery = p.name.toLowerCase().includes(query) || p.id.toString().includes(query);
+      const matchesType = this.selectedTypes.length ? p.types.some((t: string) => this.selectedTypes.includes(t)) : true;
+      const matchesHabitat = this.selectedHabitats.length ? this.selectedHabitats.includes(p.habitat) : true;
+
+      return matchesQuery && matchesType && matchesHabitat;
+    });
 
     this.totalPages = Math.ceil(this.filteredPokemons.length / this.pageSize);
     this.setPage(this.currentPage);
+    if (this.isFilterOpen) this.closeFilterModal();
   }
 
+  openFilterModal() {
+    this.isFilterOpen = true;
+  }
+
+  closeFilterModal() {
+    this.isFilterOpen = false;
+  }
+
+  handleModalDismiss() {
+    document.activeElement && (document.activeElement as HTMLElement).blur();
+    this.isFilterOpen = false;
+  }
+
+  clearFilters() {
+    this.selectedTypes = [];
+    this.selectedHabitats = [];
+    this.searchQuery = '';
+    this.applySearchFilter();
+    this.closeFilterModal();
+  }
+
+  hasActiveFilters(): boolean {
+    return this.selectedTypes.length > 0 || this.selectedHabitats.length > 0;
+  }
 
   setPage(page: number) {
     this.currentPage = page;
