@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 
 import { FavoriteService } from '../../services/favorite.service';
 import { PokemonService } from '../../services/pokemon.service';
+import { MessageService } from '../../services/message.service';
 
 import { PokemonCardComponent } from '../../components/pokemon-card/pokemon-card.component';
 
@@ -21,13 +22,14 @@ import { PokemonCardComponent } from '../../components/pokemon-card/pokemon-card
   ]
 })
 export class FavoritesPage implements OnInit {
-  pokemons: any[] = [];
+  favoritePokemons: any[] = [];
 
   loading = false;
 
   constructor(
     private favoriteService: FavoriteService,
-    private pokemonService: PokemonService
+    private pokemonService: PokemonService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit() {
@@ -38,9 +40,15 @@ export class FavoritesPage implements OnInit {
     this.loading = true;
     const favoriteNames = this.favoriteService.getFavorites();
 
-    this.pokemonService.getFavoritePokemons(favoriteNames).subscribe(pokemons => {
-      this.pokemons = pokemons;
+    this.pokemonService.getFavoritePokemons(favoriteNames).subscribe({
+      next: (data) => {
+        this.favoritePokemons = data;
+        this.loading = false;
+      },
+      error: () => {
+        this.loading = false;
+        this.messageService.showError('Erro ao carregar seus favoritos.');
+      }
     });
-    this.loading = false;
   }
 }

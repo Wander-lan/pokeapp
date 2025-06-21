@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule  } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 
 import { PokemonService } from '../services/pokemon.service';
+import { MessageService } from '../services/message.service';
 
 import { PokemonCardComponent } from '../components/pokemon-card/pokemon-card.component';
 import { PaginationComponent } from '../components/pagination/pagination.component';
@@ -46,6 +47,7 @@ export class HomePage implements OnInit {
 
   constructor(
     private pokemonService: PokemonService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit() {
@@ -54,12 +56,19 @@ export class HomePage implements OnInit {
 
   loadPokemons() {
     this.loading = true;
-    this.pokemonService.getPokemons(this.limit, this.offset).subscribe((data) => {
-      this.pokemons = [...data];
-      this.allTypes = this.getUniqueValues(data.flatMap(p => p.types));
-      this.allHabitats = this.getUniqueValues(data.map(p => p.habitat));
-      this.applySearchFilter();
-      this.loading = false;
+    
+    this.pokemonService.getPokemons(this.limit, this.offset).subscribe({
+      next: (data) => {
+        this.pokemons = [...data];
+        this.allTypes = this.getUniqueValues(data.flatMap(p => p.types));
+        this.allHabitats = this.getUniqueValues(data.map(p => p.habitat));
+        this.applySearchFilter();
+        this.loading = false;
+      },
+      error: (err) => {
+        this.loading = false;
+        this.messageService.showError('Erro ao carregar os Pokémons. Tente novamente mais tarde.');
+      }
     });
   }
 
