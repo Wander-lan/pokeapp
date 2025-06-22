@@ -40,7 +40,7 @@ export class FavoritesPage implements OnInit {
     this.loading = true;
     const favoriteNames = this.favoriteService.getFavorites();
 
-    this.pokemonService.getFavoritePokemons(favoriteNames).subscribe({
+    this.pokemonService.getFavoritePokemonList(favoriteNames).subscribe({
       next: (data) => {
         this.favoritePokemons = data;
         this.loading = false;

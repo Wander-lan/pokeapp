@@ -57,7 +57,7 @@ export class HomePage implements OnInit {
   loadPokemons() {
     this.loading = true;
     
-    this.pokemonService.getPokemons(this.limit, this.offset).subscribe({
+    this.pokemonService.getPokemonList(this.limit, this.offset).subscribe({
       next: (data) => {
         this.pokemons = [...data];
         this.allTypes = this.getUniqueValues(data.flatMap(p => p.types));
