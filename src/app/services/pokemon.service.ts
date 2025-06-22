@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { forkJoin, map, mergeMap, Observable, of, switchMap, catchError } from 'rxjs';
 
+import { PokemonBasic, PokemonDetail, PokemonDetailRaw, PokemonSpecies } from '../models/pokemon.model';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -18,9 +20,12 @@ export class PokemonService {
   }
 
   // Get habitats info by name or ID
-  getPokemonSpecies(nameOrId: string | number): Observable<any> {
+  getPokemonSpecies(nameOrId: string | number): Observable<PokemonSpecies> {
     return this.http.get<any>(`${this.baseUrl}/pokemon-species/${nameOrId}`).pipe(
-      catchError(this.handleError('buscar espécie', { habitat: { name: 'unknown' } }))
+      catchError(this.handleError('buscar espécie', { 
+        habitat: { name: 'unknown' },
+        gender_rate: -1, 
+      } as PokemonSpecies))
     );
   }
 
@@ -43,17 +48,31 @@ export class PokemonService {
   }
 
   // Get basic pokemon details by name
-  getPokemonDetailRaw(name: string): Observable<any> {
+  getPokemonDetailRaw(name: string): Observable<PokemonDetailRaw> {
     return this.http.get<any>(`${this.baseUrl}/pokemon/${name}`).pipe(
       catchError(this.handleError(`detalhes de ${name}`, {
-        name, id: 0, sprites: { front_default: '' }, types: [], abilities: [], height: 0, weight: 0, base_experience: 0
-      }))
+        name,
+        id: 0,
+        sprites: {
+          front_default: '',
+          other: {
+            'official-artwork': {
+              front_default: ''
+            }
+          }
+        },
+        types: [],
+        abilities: [],
+        height: 0,
+        weight: 0,
+        base_experience: 0
+      } as PokemonDetailRaw))
     );
   }
   
 
   // Get complete pokemon details (to be shown in the page of each pokemon)
-  getPokemonDetail(name: string): Observable<any> {
+  getPokemonDetail(name: string): Observable<PokemonDetail> {
     return this.getPokemonDetailRaw(name).pipe(
       switchMap((detail) =>
         forkJoin([
@@ -81,7 +100,7 @@ export class PokemonService {
   }
 
   // Get minimal pokemon info (for cards and lists)
-  getBasicPokemonData(name: string): Observable<any> {
+  getBasicPokemonData(name: string): Observable<PokemonBasic> {
     return forkJoin([
       this.getPokemonDetailRaw(name),
       this.getPokemonSpecies(name).pipe(
@@ -99,7 +118,7 @@ export class PokemonService {
   }
 
   // Get all pokemon (the 151 limit is for the original ones)
-  getPokemonList(limit: number = 151, offset: number = 0): Observable<any[]> {
+  getPokemonList(limit: number = 151, offset: number = 0): Observable<PokemonBasic[]> {
     return this.http.get<any>(`${this.baseUrl}/pokemon?limit=${limit}&offset=${offset}`).pipe(
       map((response) => response.results),
       mergeMap((results: any[]) =>
@@ -112,7 +131,7 @@ export class PokemonService {
   }
 
   // Get favorite pokemon list
-  getFavoritePokemonList(names: string[]): Observable<any[]> {
+  getFavoritePokemonList(names: string[]): Observable<PokemonBasic[]> {
     if (names.length === 0) return of([]);
 
     return forkJoin(

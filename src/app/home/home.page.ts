@@ -8,6 +8,7 @@ import { MessageService } from '../services/message.service';
 
 import { PokemonCardComponent } from '../components/pokemon-card/pokemon-card.component';
 import { PaginationComponent } from '../components/pagination/pagination.component';
+import { PokemonBasic } from '../models/pokemon.model';
 
 @Component({
   selector: 'app-home',
@@ -23,9 +24,9 @@ import { PaginationComponent } from '../components/pagination/pagination.compone
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-  pokemons: any[] = [];
-  displayedPokemons: any[] = [];
-  filteredPokemons: any[] = [];
+  pokemons: PokemonBasic[] = [];
+  displayedPokemons: PokemonBasic[] = [];
+  filteredPokemons: PokemonBasic[] = [];
 
   limit = 151;
   offset = 0;

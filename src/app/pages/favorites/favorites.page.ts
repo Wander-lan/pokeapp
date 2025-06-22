@@ -8,6 +8,7 @@ import { PokemonService } from '../../services/pokemon.service';
 import { MessageService } from '../../services/message.service';
 
 import { PokemonCardComponent } from '../../components/pokemon-card/pokemon-card.component';
+import { PokemonBasic } from 'src/app/models/pokemon.model';
 
 @Component({
   selector: 'app-favorites',
@@ -22,7 +23,7 @@ import { PokemonCardComponent } from '../../components/pokemon-card/pokemon-card
   ]
 })
 export class FavoritesPage implements OnInit {
-  favoritePokemons: any[] = [];
+  favoritePokemons: PokemonBasic[] = [];
 
   loading = false;
 

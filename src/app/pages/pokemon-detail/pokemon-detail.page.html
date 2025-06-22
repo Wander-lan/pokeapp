@@ -6,16 +6,16 @@
       <ion-row>
         <!-- Left side: large image -->
         <ion-col size="12" size-md="5" class="image-container">
-          <img [src]="pokemon.highResImage" [alt]="pokemon.name" class="pokemon-image-large" />
+          <img [src]="pokemon?.highResImage" [alt]="pokemon?.name" class="pokemon-image-large" />
         </ion-col>
 
         <!-- Right side: info -->
         <ion-col size="12" size-md="7">
           <ion-card>
             <ion-card-header>
-              <ion-card-title>{{ pokemon.name | titlecase }} - Nº {{ pokemon.id }}</ion-card-title>
+              <ion-card-title>{{ pokemon?.name | titlecase }} - Nº {{ pokemon?.id }}</ion-card-title>
               <ion-card-subtitle>
-                Altura: {{ pokemon.height }} | Peso: {{ pokemon.weight }}
+                Altura: {{ pokemon?.height }} | Peso: {{ pokemon?.weight }}
               </ion-card-subtitle>
             </ion-card-header>
 

@@ -5,6 +5,8 @@ import { PokemonService } from '../../services/pokemon.service';
 import { ActivatedRoute } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
+import { PokemonDetail } from 'src/app/models/pokemon.model';
+
 @Component({
   selector: 'app-pokemon-detail',
   templateUrl: './pokemon-detail.page.html',
@@ -17,7 +19,7 @@ import { IonicModule } from '@ionic/angular';
   ]
 })
 export class PokemonDetailPage implements OnInit {
-  pokemon: any = null;
+  pokemon: PokemonDetail | null = null;
   types: string[] = [];
   abilities: string[] = [];
   weaknesses: string[] = [];
