@@ -29,14 +29,14 @@
 
               <p><strong>Tipos:</strong></p>
               <div class="label-container">
-                <span class="type-label" *ngFor="let type of types" [ngStyle]="{'background-color': getTypeColor(type)}">
+                <span class="type-label" *ngFor="let type of types" [ngStyle]="{'background-color': getColorForType(type)}">
                   {{ type }}
                 </span>
               </div>
 
               <p><strong>Fraquezas:</strong></p>
               <div class="label-container">
-                <span class="type-label weakness" *ngFor="let weak of weaknesses" [ngStyle]="{'background-color': getTypeColor(weak)}">
+                <span class="type-label weakness" *ngFor="let weak of weaknesses" [ngStyle]="{'background-color': getColorForType(weak)}">
                   {{ weak }}
                 </span>
               </div>

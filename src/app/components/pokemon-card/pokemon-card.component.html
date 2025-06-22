@@ -22,7 +22,7 @@
     <span
       *ngFor="let type of pokemon.types"
       class="type-label"
-      [ngStyle]="{ 'background-color': getTypeColor(type) }"
+      [ngStyle]="{ 'background-color': getColorForType(type) }"
     >
       {{ type | titlecase }}
     </span>
