@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PokemonService } from '../../services/pokemon.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
+import { PokemonService } from '../../services/pokemon.service';
+import { MessageService } from 'src/app/services/message.service';
+
 import { PokemonDetail } from 'src/app/models/pokemon.model';
+
 
 import { getTypeColor } from 'src/app/utils/pokemon-utils';
 import { POKEMON_LIMIT } from '../../constants/pokemon.constants';
@@ -34,7 +37,7 @@ export class PokemonDetailPage implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private pokemonService: PokemonService,
-
+    private messageService: MessageService
   ) { }
 
   pokemonId: number = 0;
@@ -45,16 +48,24 @@ export class PokemonDetailPage implements OnInit {
     this.loading = true;
 
     if (name) {
-      this.pokemonService.getPokemonDetail(name).subscribe(data => {
-        this.pokemon = data;
-        this.pokemonId = data.id;
-        this.types = data.types;
-        this.abilities = data.abilities;
-        this.weaknesses = data?.weaknesses || [];
-        this.setGenderRate(data.genderRate);
+      this.pokemonService.getPokemonDetail(name).subscribe({
+        next: (data) => {
+          this.pokemon = data;
+          this.pokemonId = data.id;
+          this.types = data.types;
+          this.abilities = data.abilities;
+          this.weaknesses = data?.weaknesses || [];
+          this.setGenderRate(data.genderRate);
 
-        this.loading = false;
+          this.loading = false;
+        },
+        error: (err) => {
+          this.loading = false;
+          this.messageService.showError('Erro ao carregar os detalhes. Tente novamente mais tarde.');
+        }
       });
+    } else {
+      this.messageService.showError('Erro ao acessar a rota.');
     }
   }
 
