@@ -3,6 +3,15 @@
 
   <ng-container *ngIf="!loading; else loadingTemplate">
     <ion-grid class="pokemon-detail-grid">
+      <ion-row class="navigation-buttons">
+        <ion-col size="6">
+          <ion-button expand="block" color="dark" (click)="goToPrevious()" [disabled]="pokemonId <= 1">← Anterior</ion-button>
+        </ion-col>
+        <ion-col size="6">
+          <ion-button expand="block" color="dark" (click)="goToNext()" [disabled]="pokemonId >= pokemonLimit">Próximo →</ion-button>
+        </ion-col>
+      </ion-row>
+
       <ion-row class="ion-row">
         <!-- Left side: large image -->
         <ion-col size="12" size-md="5" class="image-col">

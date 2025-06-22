@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PokemonService } from '../../services/pokemon.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { PokemonDetail } from 'src/app/models/pokemon.model';
 
 import { getTypeColor } from 'src/app/utils/pokemon-utils';
+import { POKEMON_LIMIT } from '../../constants/pokemon.constants';
 
 @Component({
   selector: 'app-pokemon-detail',
@@ -29,7 +30,15 @@ export class PokemonDetailPage implements OnInit {
 
   loading = false;
 
-  constructor(private route: ActivatedRoute, private pokemonService: PokemonService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private pokemonService: PokemonService,
+
+  ) { }
+
+  pokemonId: number = 0;
+  pokemonLimit = POKEMON_LIMIT;
 
   ngOnInit() {
     const name = this.route.snapshot.paramMap.get('name');
@@ -38,6 +47,7 @@ export class PokemonDetailPage implements OnInit {
     if (name) {
       this.pokemonService.getPokemonDetail(name).subscribe(data => {
         this.pokemon = data;
+        this.pokemonId = data.id;
         this.types = data.types;
         this.abilities = data.abilities;
         this.weaknesses = data?.weaknesses || [];
@@ -72,5 +82,24 @@ export class PokemonDetailPage implements OnInit {
       : `/assets/media/habitat-unknown.png`;
 
     return `url('${path}')`;
+  }
+
+  goToPrevious() {
+    if (this.pokemonId > 1) {
+      this.loadPokemonById(this.pokemonId - 1);
+    }
+  }
+
+  goToNext() {
+    if (this.pokemonId < POKEMON_LIMIT) {
+      this.loadPokemonById(this.pokemonId + 1);
+    }
+  }
+
+  loadPokemonById(id: number) {
+    this.pokemonService.getPokemonDetailRaw(id).subscribe(detail => {
+      const name = detail.name;
+      this.router.navigate(['/pokemon', name]);
+    });
   }
 }

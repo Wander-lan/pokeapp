@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { forkJoin, map, mergeMap, Observable, of, switchMap, catchError } from 'rxjs';
 
 import { PokemonBasic, PokemonDetail, PokemonDetailRaw, PokemonSpecies } from '../models/pokemon.model';
+import { POKEMON_LIMIT } from '../constants/pokemon.constants';
 
 @Injectable({
   providedIn: 'root'
@@ -48,10 +49,10 @@ export class PokemonService {
   }
 
   // Get basic pokemon details by name
-  getPokemonDetailRaw(name: string): Observable<PokemonDetailRaw> {
-    return this.http.get<any>(`${this.baseUrl}/pokemon/${name}`).pipe(
-      catchError(this.handleError(`detalhes de ${name}`, {
-        name,
+  getPokemonDetailRaw(nameOrId: string | number): Observable<PokemonDetailRaw> {
+    return this.http.get<any>(`${this.baseUrl}/pokemon/${nameOrId}`).pipe(
+      catchError(this.handleError(`detalhes de ${nameOrId}`, {
+        name: '',
         id: 0,
         sprites: {
           front_default: '',
@@ -118,7 +119,7 @@ export class PokemonService {
   }
 
   // Get all pokemon (the 151 limit is for the original ones)
-  getPokemonList(limit: number = 151, offset: number = 0): Observable<PokemonBasic[]> {
+  getPokemonList(limit: number = POKEMON_LIMIT, offset: number = 0): Observable<PokemonBasic[]> {
     return this.http.get<any>(`${this.baseUrl}/pokemon?limit=${limit}&offset=${offset}`).pipe(
       map((response) => response.results),
       mergeMap((results: any[]) =>

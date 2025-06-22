@@ -9,6 +9,7 @@ import { MessageService } from '../services/message.service';
 import { PokemonCardComponent } from '../components/pokemon-card/pokemon-card.component';
 import { PaginationComponent } from '../components/pagination/pagination.component';
 import { PokemonBasic } from '../models/pokemon.model';
+import { POKEMON_LIMIT } from '../constants/pokemon.constants';
 
 @Component({
   selector: 'app-home',
@@ -28,7 +29,7 @@ export class HomePage implements OnInit {
   displayedPokemons: PokemonBasic[] = [];
   filteredPokemons: PokemonBasic[] = [];
 
-  limit = 151;
+  limit = POKEMON_LIMIT;
   offset = 0;
 
   currentPage = 1;
