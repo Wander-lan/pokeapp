@@ -15,12 +15,14 @@
       <ion-row class="ion-row">
         <!-- Left side: large image -->
         <ion-col size="12" size-md="5" class="image-col">
-          <ion-card class="image-container">
-            <img [src]="pokemon?.highResImage" [alt]="pokemon?.name" class="pokemon-image-large" />
-            <div
-              class="background-image"
-              [ngStyle]="{ 'background-image': habitatBackground }"
-            ></div>
+          <ion-card>
+            <ion-card-content class="image-container">
+              <img [src]="pokemon?.highResImage" [alt]="pokemon?.name" class="pokemon-image-large" />
+              <div
+                class="background-image"
+                [ngStyle]="{ 'background-image': habitatBackground }"
+              ></div>
+            </ion-card-content>
           </ion-card>
         </ion-col>
 
@@ -32,6 +34,8 @@
             </ion-card-header>
 
             <ion-card-content class="card-content">
+              <p>{{ pokemon?.description }}</p>
+
               <div class="basic-info">
                 <div>
                   <p><strong>Altura:</strong></p>
@@ -75,7 +79,6 @@
                   </span>
                 </div>
               </div>
-              
             </ion-card-content>
           </ion-card>
         </ion-col>

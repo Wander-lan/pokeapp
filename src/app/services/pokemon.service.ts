@@ -25,7 +25,8 @@ export class PokemonService {
     return this.http.get<any>(`${this.baseUrl}/pokemon-species/${nameOrId}`).pipe(
       catchError(this.handleError('buscar espécie', { 
         habitat: { name: 'unknown' },
-        gender_rate: -1, 
+        gender_rate: -1,
+        flavor_text_entries: []
       } as PokemonSpecies))
     );
   }
@@ -81,20 +82,31 @@ export class PokemonService {
           this.getPokemonSpecies(name),
           this.getPokemonWeaknesses(detail.types)
         ]).pipe(
-          map(([detail, species, weaknesses]) => ({
-            name: detail.name,
-            id: detail.id,
-            highResImage: detail.sprites.other['official-artwork'].front_default,
-            height: detail.height,
-            weight: detail.weight,
-            base_experience: detail.base_experience,
-            sprites: detail.sprites,
-            types: detail.types.map((t: any) => t.type.name),
-            abilities: detail.abilities.map((a: any) => a.ability.name),
-            habitat: species.habitat?.name || 'unknown',
-            genderRate: species.gender_rate,
-            weaknesses
-          }))
+          map(([detail, species, weaknesses]) => {
+            const descriptionEntry = species.flavor_text_entries.find(
+              (entry) => entry.language.name === 'pt'
+            ) || species.flavor_text_entries.find(
+              (entry) => entry.language.name === 'en'
+            );
+
+            const description = descriptionEntry?.flavor_text?.replace(/\f/g, ' ') || 'Descrição indisponível.';
+
+            return {
+              name: detail.name,
+              id: detail.id,
+              highResImage: detail.sprites.other['official-artwork'].front_default,
+              height: detail.height,
+              weight: detail.weight,
+              base_experience: detail.base_experience,
+              sprites: detail.sprites,
+              types: detail.types.map((t: any) => t.type.name),
+              abilities: detail.abilities.map((a: any) => a.ability.name),
+              habitat: species.habitat?.name || 'unknown',
+              genderRate: species.gender_rate,
+              weaknesses,
+              description
+            };
+          })
         )
       )
     );

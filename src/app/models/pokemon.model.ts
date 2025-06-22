@@ -26,6 +26,7 @@ export interface PokemonDetail {
   habitat: string;
   genderRate: number;
   weaknesses: string[];
+  description: string;
 }
 
 export interface PokemonSpecies {
@@ -33,6 +34,15 @@ export interface PokemonSpecies {
     name: string;
   } | null;
   gender_rate: number;
+  flavor_text_entries: {
+    flavor_text: string;
+    language: {
+      name: string;
+    };
+    version: {
+      name: string;
+    };
+  }[];
 }
 
 export interface PokemonDetailRaw {
