@@ -25,6 +25,7 @@ export class PokemonDetailPage implements OnInit {
   types: string[] = [];
   abilities: string[] = [];
   weaknesses: string[] = [];
+  genderLabel = '';
 
   loading = false;
 
@@ -40,6 +41,8 @@ export class PokemonDetailPage implements OnInit {
         this.types = data.types;
         this.abilities = data.abilities;
         this.weaknesses = data?.weaknesses || [];
+        this.setGenderRate(data.genderRate);
+
         this.loading = false;
       });
     }
@@ -47,5 +50,27 @@ export class PokemonDetailPage implements OnInit {
 
   getColorForType(type: string): string {
     return getTypeColor(type);
+  }
+
+  setGenderRate(rate: number): void {
+    if (rate === -1) {
+      this.genderLabel = 'Sem Gênero';
+    } else if (rate === 0) {
+      this.genderLabel = '♂️';
+    } else if (rate === 8) {
+      this.genderLabel = '♀️';
+    } else {
+      const femalePercent = (rate / 8) * 100;
+      const malePercent = 100 - femalePercent;
+      this.genderLabel = `♂️ ${malePercent}% / ♀️ ${femalePercent}%`;
+    }
+  }
+
+  get habitatBackground(): string {
+    const path = this.pokemon?.habitat
+      ? `/assets/media/habitat-${this.pokemon.habitat}.png`
+      : `/assets/media/habitat-unknown.png`;
+
+    return `url('${path}')`;
   }
 }

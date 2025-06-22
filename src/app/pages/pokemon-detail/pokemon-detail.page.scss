@@ -1,52 +1,122 @@
 :host {
-  ion-content {
-    --background: var(--dark-blue);
-  }
+    ion-content {
+        --background: var(--dark-blue);
+    }
 }
 
 .pokemon-detail-grid {
-  padding: 0;
+    padding: 0;
 }
 
 h1 {
-  font-family: fantasy;
+    font-family: fantasy;
+}
+
+.ion-row {
+    background: #1e1e1e;
+    border-radius: 10px;
+    padding: 0;
+}
+
+.image-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .image-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    height: 100%;
 
-.pokemon-image-large {
-  width: 100%;
-  max-width: 300px;
-  object-fit: contain;
+    .background-image {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        filter: blur(2px);
+        transform: scale(1.1);
+        z-index: 0;
+    }
+
+    .pokemon-image-large {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 350px;
+        object-fit: contain;
+    }
 }
 
 .label-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin: 0.5rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0.5rem 0;
 }
 
 .type-label {
-  padding: 4px 10px;
-  border-radius: 12px;
-  color: white;
-  font-size: 0.85rem;
-  text-transform: capitalize;
+    padding: 4px 10px;
+    border-radius: 12px;
+    color: white;
+    font-size: 0.85rem;
+    text-transform: capitalize;
 }
 
+.info-card {
+    --background: transparent;
+    background: transparent;
+    box-shadow: none;
+}
+
+.loading-container {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    margin: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.basic-info {
+    background: rgb(61, 129, 185);
+    border-radius: 5px;
+    padding: 1rem;
+    color: white;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 1rem;
+
+}
+
+.habilities {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+
 @media (min-width: 1280px) {
-  .pokemon-detail-grid {
-    padding: 0 5rem;
-  }
+    .pokemon-detail-grid {
+        padding: 0 5rem;
+    }
+
+    .ion-row {
+        padding: 1rem;
+    }
 }
 
 @media (min-width: 1920px) {
-  .pokemon-detail-grid {
-    padding: 0 25rem;
-  }
+    .pokemon-detail-grid {
+        padding: 0 25rem;
+    }
 }

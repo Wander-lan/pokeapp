@@ -3,45 +3,78 @@
 
   <ng-container *ngIf="!loading; else loadingTemplate">
     <ion-grid class="pokemon-detail-grid">
-      <ion-row>
+      <ion-row class="ion-row">
         <!-- Left side: large image -->
-        <ion-col size="12" size-md="5" class="image-container">
-          <img [src]="pokemon?.highResImage" [alt]="pokemon?.name" class="pokemon-image-large" />
+        <ion-col size="12" size-md="5" class="image-col">
+          <ion-card class="image-container">
+            <img [src]="pokemon?.highResImage" [alt]="pokemon?.name" class="pokemon-image-large" />
+            <div
+              class="background-image"
+              [ngStyle]="{ 'background-image': habitatBackground }"
+            ></div>
+          </ion-card>
         </ion-col>
 
         <!-- Right side: info -->
         <ion-col size="12" size-md="7">
-          <ion-card>
+          <ion-card class="info-card">
             <ion-card-header>
               <ion-card-title>{{ pokemon?.name | titlecase }} - Nº {{ pokemon?.id }}</ion-card-title>
-              <ion-card-subtitle>
-                Altura: {{ pokemon?.height }} | Peso: {{ pokemon?.weight }}
-              </ion-card-subtitle>
             </ion-card-header>
 
-            <ion-card-content>
-              <p><strong>Sexo:</strong> ♂️ / ♀️</p> <!-- Estático por enquanto -->
+            <ion-card-content class="card-content">
+              <div class="basic-info">
+                <div>
+                  <p><strong>Altura:</strong></p>
+                  <p>{{ pokemon?.height }}</p>
+                </div>
 
-              <p><strong>Habilidades:</strong></p>
-              <ul>
-                <li *ngFor="let ability of abilities">{{ ability | titlecase }}</li>
-              </ul>
+                <div>
+                  <p><strong>Sexo:</strong></p>
+                  <p>{{ genderLabel }}</p> <!-- Estático por enquanto -->
+                </div>
 
-              <p><strong>Tipos:</strong></p>
-              <div class="label-container">
-                <span class="type-label" *ngFor="let type of types" [ngStyle]="{'background-color': getColorForType(type)}">
-                  {{ type }}
-                </span>
+                <div>
+                  <p><strong>Peso:</strong></p>
+                  <p>{{ pokemon?.weight }}</p>
+                </div>
+                
+                <div>
+                  <p><strong>Habilidades:</strong></p>
+                  <div class="habilities">
+                    <span *ngFor="let ability of abilities">{{ ability | titlecase }}</span>
+                  </div>
+                </div>
               </div>
 
-              <p><strong>Fraquezas:</strong></p>
-              <div class="label-container">
-                <span class="type-label weakness" *ngFor="let weak of weaknesses" [ngStyle]="{'background-color': getColorForType(weak)}">
-                  {{ weak }}
-                </span>
+              <p><strong>Habitat:</strong> {{ pokemon?.habitat }}</p>
+
+              <div>
+                <p><strong>Tipos:</strong></p>
+                <div class="label-container">
+                  <span class="type-label" *ngFor="let type of types" [ngStyle]="{'background-color': getColorForType(type)}">
+                    {{ type }}
+                  </span>
+                </div>
               </div>
+
+              <div>
+                <p><strong>Fraquezas:</strong></p>
+                <div class="label-container">
+                  <span class="type-label weakness" *ngFor="let weak of weaknesses" [ngStyle]="{'background-color': getColorForType(weak)}">
+                    {{ weak }}
+                  </span>
+                </div>
+              </div>
+              
             </ion-card-content>
           </ion-card>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          Evolução
         </ion-col>
       </ion-row>
     </ion-grid>
