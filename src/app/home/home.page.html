@@ -1,8 +1,10 @@
 <ion-content class="ion-padding">
   <h1 class="ion-text-center">Pokédex</h1>
 
+  <!-- Search bar and filter icon -->
   <div class="search-bar-container">
     <ion-searchbar
+      [disabled]="loading"
       [(ngModel)]="searchQuery"
       (ionInput)="onSearchChange()"
       placeholder="Pesquisar por nome ou número..."
@@ -16,6 +18,7 @@
     </ion-button>
   </div>
 
+  <!-- Filter modal -->
   <ion-modal [isOpen]="isFilterOpen" (didDismiss)="handleModalDismiss()" class="filter-modal">
     <ng-template>
       <ion-content class="ion-padding">
@@ -43,19 +46,26 @@
     </ng-template>
   </ion-modal>
 
-  <ion-grid class="home-grid">
-    <ion-row>
-      <ion-col
-        size="12" size-sm="6" size-md="4" size-lg="4" size-xl="4"
-        *ngFor="let pokemon of displayedPokemons"
-      >
-        <app-pokemon-card
-          [pokemon]="pokemon"
+  <!-- Main content -->
+  <ng-container *ngIf="!loading; else loadingTemplate">
+    <ion-grid class="home-grid">
+      <ion-row>
+        <ion-col
+          size="12" size-sm="6" size-md="4" size-lg="4" size-xl="4"
+          *ngFor="let pokemon of displayedPokemons"
         >
-        </app-pokemon-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+          <app-pokemon-card [pokemon]="pokemon"></app-pokemon-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ng-container>
+
+  <ng-template #loadingTemplate>
+    <div class="loading-container">
+      <p>Carregando Pokémons...</p>
+      <ion-spinner name="crescent"></ion-spinner>
+    </div>
+  </ng-template>
 
   <app-pagination
     [currentPage]="currentPage"

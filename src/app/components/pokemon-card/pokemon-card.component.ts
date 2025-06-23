@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 
 import { FavoriteService } from 'src/app/services/favorite.service';
 
+import { getTypeColor } from 'src/app/utils/pokemon-utils';
+
 @Component({
   selector: 'app-pokemon-card',
   standalone: true,
@@ -41,5 +43,9 @@ export class PokemonCardComponent {
 
   toggleFavorite(name: string) {
     this.favoriteService.toggleFavorite(name);
+  }
+
+  getColorForType(type: string): string {
+    return getTypeColor(type);
   }
 }

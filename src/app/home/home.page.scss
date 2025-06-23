@@ -37,6 +37,15 @@ h1 {
     justify-content: center;
 }
 
+.loading-container {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    margin: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
 @media (min-width: 1280px) {
     .home-grid {
         padding: 0 5rem;
