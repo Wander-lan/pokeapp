@@ -6,6 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { PokemonService } from '../../services/pokemon.service';
 import { MessageService } from 'src/app/services/message.service';
+import { FavoriteService } from 'src/app/services/favorite.service';
 
 import { PokemonBasic, PokemonDetail } from 'src/app/models/pokemon.model';
 
@@ -39,7 +40,8 @@ export class PokemonDetailPage implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private pokemonService: PokemonService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private favoriteService: FavoriteService,
   ) { }
 
   pokemonId: number = 0;
@@ -129,5 +131,13 @@ export class PokemonDetailPage implements OnInit {
       const name = detail.name;
       this.router.navigate(['/pokemon', name]);
     });
+  }
+
+  isFavorite(name?: string): boolean {
+    return name ? this.favoriteService.isFavorite(name) : false;
+  }
+
+  toggleFavorite(name?: string): void {
+    if (name) this.favoriteService.toggleFavorite(name);
   }
 }

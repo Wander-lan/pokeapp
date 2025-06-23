@@ -24,12 +24,19 @@ h1 {
 }
 
 .pokemon-name-mobile {
-    display: block;
-    font-size: 1.2rem;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 1rem;
-    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    h2 {
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 1rem;
+        color: white;
+    }
 
     @media (min-width: 768px) {
         display: none;
@@ -47,8 +54,14 @@ h1 {
     }
 
     @media (min-width: 768px) {
-        display: block;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
     }
+}
+
+.heart-icon {
+    cursor: pointer;
 }
 
 .image-container {

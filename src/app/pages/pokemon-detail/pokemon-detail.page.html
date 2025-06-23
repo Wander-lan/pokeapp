@@ -15,7 +15,16 @@
       <ion-row class="ion-row">
         <!-- Left side: large image -->
         <ion-col size="12" size-md="5" class="left-col">
-          <h2 class="pokemon-name-mobile">{{ pokemon?.name | titlecase }} - Nº {{ pokemon?.id }}</h2>
+          <div class="pokemon-name-mobile">
+            <h2>{{ pokemon?.name | titlecase }} - Nº {{ pokemon?.id }}</h2>
+            <ion-icon
+              [name]="isFavorite(pokemon?.name) ? 'heart' : 'heart-outline'"
+              color="danger"
+              size="small"
+              (click)="toggleFavorite(pokemon?.name); $event.stopPropagation();"
+              class="heart-icon"
+            ></ion-icon>
+          </div>
           <ion-card style="margin-bottom: 1rem;">
             <ion-card-content class="image-container">
               <img [src]="pokemon?.highResImage" [alt]="pokemon?.name" class="pokemon-image-large" />
@@ -43,6 +52,13 @@
           <ion-card class="info-card">
             <ion-card-header class="pokemon-name-desktop">
               <h2>{{ pokemon?.name | titlecase }} - Nº {{ pokemon?.id }}</h2>
+              <ion-icon
+                [name]="isFavorite(pokemon?.name) ? 'heart' : 'heart-outline'"
+                color="danger"
+                size="small"
+                (click)="toggleFavorite(pokemon?.name); $event.stopPropagation();"
+                class="heart-icon"
+              ></ion-icon>
             </ion-card-header>
 
             <ion-card-content class="info-card-content">
