@@ -26,7 +26,8 @@ export class PokemonService {
       catchError(this.handleError('buscar espécie', { 
         habitat: { name: 'unknown' },
         gender_rate: -1,
-        flavor_text_entries: []
+        flavor_text_entries: [],
+        evolution_chain: { url: '' }
       } as PokemonSpecies))
     );
   }
@@ -67,7 +68,15 @@ export class PokemonService {
         abilities: [],
         height: 0,
         weight: 0,
-        base_experience: 0
+        base_experience: 0,
+        stats: [
+          {
+            base_stat: 0,
+            stat: {
+              name: ''
+            }
+          }
+        ]
       } as PokemonDetailRaw))
     );
   }
@@ -83,6 +92,8 @@ export class PokemonService {
           this.getPokemonWeaknesses(detail.types)
         ]).pipe(
           map(([detail, species, weaknesses]) => {
+
+            // Search for portuguese or english description of the pokemon
             const descriptionEntry = species.flavor_text_entries.find(
               (entry) => entry.language.name === 'pt'
             ) || species.flavor_text_entries.find(
@@ -104,7 +115,8 @@ export class PokemonService {
               habitat: species.habitat?.name || 'unknown',
               genderRate: species.gender_rate,
               weaknesses,
-              description
+              description,
+              stats: detail.stats
             };
           })
         )
@@ -151,6 +163,31 @@ export class PokemonService {
       names.map(name => this.getBasicPokemonData(name))
     ).pipe(
       map(results => results.filter(p => p !== null))
+    );
+  }
+
+  // Get a pokemon evolution chain
+  getPokemonEvolutionChain(nameOrId: string | number): Observable<PokemonBasic[]> {
+    return this.getPokemonSpecies(nameOrId).pipe(
+      switchMap(species => {
+        if (!species.evolution_chain?.url) return of([]);
+
+        return this.http.get<any>(species.evolution_chain.url).pipe(
+          map(chainData => {
+            const evolutionNames: string[] = [];
+
+            let current = chainData.chain;
+            while (current) {
+              evolutionNames.push(current.species.name);
+              current = current.evolves_to?.[0]; // Get the first evolutive line
+            }
+
+            return evolutionNames;
+          }),
+          switchMap(names => forkJoin(names.map(name => this.getBasicPokemonData(name)))),
+          catchError(this.handleError('carregar cadeia de evolução', []))
+        );
+      })
     );
   }
 }

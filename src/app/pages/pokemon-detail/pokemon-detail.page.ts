@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { PokemonService } from '../../services/pokemon.service';
 import { MessageService } from 'src/app/services/message.service';
 
-import { PokemonDetail } from 'src/app/models/pokemon.model';
+import { PokemonBasic, PokemonDetail } from 'src/app/models/pokemon.model';
 
 
 import { getTypeColor } from 'src/app/utils/pokemon-utils';
@@ -30,6 +30,8 @@ export class PokemonDetailPage implements OnInit {
   abilities: string[] = [];
   weaknesses: string[] = [];
   genderLabel = '';
+
+  evolutions: PokemonBasic[] = [];
 
   loading = false;
 
@@ -57,13 +59,23 @@ export class PokemonDetailPage implements OnInit {
           this.weaknesses = data?.weaknesses || [];
           this.setGenderRate(data.genderRate);
 
-          this.loading = false;
+          this.pokemonService.getPokemonEvolutionChain(this.pokemon!.name).subscribe({
+            next: (data) => {
+              this.evolutions = data;
+              this.loading = false;
+            },
+            error: (err) => {
+              console.log('Erro ao carregar os detalhes. Tente novamente mais tarde.');
+              this.loading = false;
+            }
+          });
         },
         error: (err) => {
           this.loading = false;
           this.messageService.showError('Erro ao carregar os detalhes. Tente novamente mais tarde.');
         }
       });
+
     } else {
       this.messageService.showError('Erro ao acessar a rota.');
     }
@@ -85,6 +97,11 @@ export class PokemonDetailPage implements OnInit {
       const malePercent = 100 - femalePercent;
       this.genderLabel = `♂️ ${malePercent}% / ♀️ ${femalePercent}%`;
     }
+  }
+
+  getStatPercentage(statValue: number): number {
+    const maxStat = 200;
+    return Math.min(100, (statValue / maxStat) * 100);
   }
 
   get habitatBackground(): string {

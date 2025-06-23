@@ -27,6 +27,12 @@ export interface PokemonDetail {
   genderRate: number;
   weaknesses: string[];
   description: string;
+  stats: {
+    base_stat: number;
+    stat: {
+      name: string;
+    };
+  }[];
 }
 
 export interface PokemonSpecies {
@@ -43,6 +49,9 @@ export interface PokemonSpecies {
       name: string;
     };
   }[];
+  evolution_chain?: {
+    url: string;
+  };
 }
 
 export interface PokemonDetailRaw {
@@ -68,6 +77,12 @@ export interface PokemonDetailRaw {
   }[];
   abilities: {
     ability: {
+      name: string;
+    };
+  }[];
+  stats: {
+    base_stat: number;
+    stat: {
       name: string;
     };
   }[];

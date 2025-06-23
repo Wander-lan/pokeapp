@@ -14,8 +14,9 @@
 
       <ion-row class="ion-row">
         <!-- Left side: large image -->
-        <ion-col size="12" size-md="5" class="image-col">
-          <ion-card>
+        <ion-col size="12" size-md="5" class="left-col">
+          <h2 class="pokemon-name-mobile">{{ pokemon?.name | titlecase }} - Nº {{ pokemon?.id }}</h2>
+          <ion-card style="margin-bottom: 1rem;">
             <ion-card-content class="image-container">
               <img [src]="pokemon?.highResImage" [alt]="pokemon?.name" class="pokemon-image-large" />
               <div
@@ -24,16 +25,28 @@
               ></div>
             </ion-card-content>
           </ion-card>
+
+          <div class="stats-container" *ngIf="pokemon?.stats?.length">
+            <div class="stat" *ngFor="let stat of pokemon?.stats">
+              <span class="stat-name">{{ stat.stat.name | titlecase }}</span>
+              <div class="stat-bar-background">
+                <div class="stat-bar" [style.width.%]="getStatPercentage(stat.base_stat)">
+                  {{ stat.base_stat }}
+                </div>
+              </div>
+            </div>
+          </div>
         </ion-col>
 
         <!-- Right side: info -->
-        <ion-col size="12" size-md="7">
+        <ion-col size="12" size-md="7" class="right-col">
           <ion-card class="info-card">
-            <ion-card-header>
-              <ion-card-title>{{ pokemon?.name | titlecase }} - Nº {{ pokemon?.id }}</ion-card-title>
+            <ion-card-header class="pokemon-name-desktop">
+              <h2>{{ pokemon?.name | titlecase }} - Nº {{ pokemon?.id }}</h2>
             </ion-card-header>
 
-            <ion-card-content class="card-content">
+            <ion-card-content class="info-card-content">
+              <p><strong>Descrição:</strong></p>
               <p>{{ pokemon?.description }}</p>
 
               <div class="basic-info">
@@ -44,7 +57,7 @@
 
                 <div>
                   <p><strong>Sexo:</strong></p>
-                  <p>{{ genderLabel }}</p> <!-- Estático por enquanto -->
+                  <p>{{ genderLabel }}</p>
                 </div>
 
                 <div>
@@ -79,6 +92,26 @@
                   </span>
                 </div>
               </div>
+
+              <div>
+                <p><strong>Evoluções:</strong></p>
+          
+                <div class="evolution-container" *ngIf="evolutions.length > 1; else noEvolution">
+                  <ng-container *ngFor="let evo of evolutions; let last = last">
+                    <div class="evolution-stage">
+                      <img [src]="evo.image" [alt]="evo.name" class="evolution-image" />
+                      <p class="evolution-name">{{ evo.name | titlecase }}</p>
+                    </div>
+                    <ng-container *ngIf="!last">
+                      <span class="arrow">→</span>
+                    </ng-container>
+                  </ng-container>
+                </div>
+
+                <ng-template #noEvolution>
+                  <p *ngIf="!loading" class="no-evolution">Este Pokémon não possui evolução.</p>
+                </ng-template>
+              </div>
             </ion-card-content>
           </ion-card>
         </ion-col>
@@ -86,7 +119,7 @@
 
       <ion-row>
         <ion-col>
-          Evolução
+          
         </ion-col>
       </ion-row>
     </ion-grid>
