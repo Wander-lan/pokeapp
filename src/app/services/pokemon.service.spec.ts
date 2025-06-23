@@ -2,8 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { PokemonService } from './pokemon.service';
-import { POKEMON_LIMIT } from '../constants/pokemon.constants';
-import { PokemonBasic, PokemonDetailRaw, PokemonSpecies } from '../models/pokemon.model';
+import { PokemonDetailRaw } from '../models/pokemon.model';
 import { of } from 'rxjs';
 
 describe('PokemonService', () => {

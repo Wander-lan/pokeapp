@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { MessageService } from './message.service';
-import { ToastController, ToastOptions } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 
 describe('MessageService', () => {
   let service: MessageService;
