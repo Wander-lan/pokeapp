@@ -1,9 +1,10 @@
 # PokeApp
 
-Aplicação construída com Angular e Ionic que simula uma Pokédex moderna, permitindo busca, filtragem e visualização de informações básicas dos Pokémons.
+Aplicação construída com Angular e Ionic que simula uma Pokédex, permitindo busca, filtragem e visualização de informações básicas dos Pokémons.
 
 ## Descrição do projeto
 
+- A API utilizada é a PokeAPI (https://pokeapi.co/)
 - A estrutura foi baseada em componentes standalone para maior modularidade e reutilização.
 - O serviço de dados é centralizado no `PokemonService`, seguindo o princípio de responsabilidade única (SRP).
 - Para estilização, foi priorizado o uso do `Ionic Framework`, aproveitando seus componentes nativos e responsivos.
